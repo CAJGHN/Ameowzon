@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prime Video: Watch movies, TV shows, sports, and live TV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amazon+Ember&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> 
+    <link rel="icon" href="https://i.imgur.com/rLz9P2z.png" type="image/png"> 
+
+    <style>
+        body {
+            font-family: 'Amazon Ember', Arial, sans-serif;
+            margin: 0;
+            background-color: #1a242f;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #f3f3f3;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: #0d1217;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-left, .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-right: 30px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        
+        .prime-logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: -1px;
+        }
+
+        .prime-logo-text span {
+            color: #007bff; 
+        }
+
+        .main-nav .nav-link {
+            margin: 0 15px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #cccccc;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav .nav-link:hover, .main-nav .nav-link.active {
+            color: #ffffff;
+        }
+
+        .search-box {
+            position: relative;
+            margin-right: 25px;
+        }
+
+        .search-box input {
+            background-color: #2b3a4a;
+            border: 1px solid #4a5d73;
+            border-radius: 4px;
+            padding: 8px 15px 8px 40px;
+            color: #ffffff;
+            font-size: 15px;
+            width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input::placeholder {
+            color: #99aabf;
+        }
+
+        .search-box input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #99aabf;
+        }
+
+        .profile-menu {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .profile-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #ffffff; 
+            margin-right: 10px;
+            border: 1px solid #4a5d73;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #0d1217;
+        }
+
+        .profile-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: #cccccc;
+        }
+
+        .profile-menu i {
+            margin-left: 8px;
+            color: #cccccc;
+        }
+
+        .hero-section {
+            position: relative;
+            height: 550px;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding-left: 60px;
+            box-shadow: inset 0 -50px 50px rgba(0,0,0,0.5);
+            transition: background-image 1s ease-in-out;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0) 70%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        .prime-badge {
+            background-color: #FFC300;
+            color: #000000;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: #cccccc;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons .btn {
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn i {
+            margin-right: 10px;
+        }
+
+        .btn-watch-now {
+            background-color: #007bff;
+            color: #ffffff;
+            margin-right: 15px;
+        }
+
+        .btn-watch-now:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-trailer {
+            background-color: #4a5d73;
+            color: #ffffff;
+        }
+
+        .btn-trailer:hover {
+            background-color: #5d7087;
+        }
+
+        .content-row-wrapper {
+            margin: 40px 0;
+            padding: 0 40px;
+        }
+
+        .content-row-wrapper h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .content-row {
+            display: flex;
+            overflow-x: scroll;
+            padding-bottom: 20px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #4a5d73 #1a242f;
+        }
+
+        .content-row::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .content-row::-webkit-scrollbar-track {
+            background: #1a242f;
+        }
+
+        .content-row::-webkit-scrollbar-thumb {
+            background-color: #4a5d73;
+            border-radius: 10px;
+            border: 2px solid #1a242f;
+        }
+
+        .content-card {
+            flex: 0 0 auto;
+            width: 280px;
+            margin-right: 15px;
+            background-color: #1a242f;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .content-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: contain;
+            background-color: #2b3a4a;
+            display: block;
+        }
+        
+        .card-info {
+            padding: 10px 15px;
+        }
+
+        .card-info h3 {
+            font-size: 18px;
+            margin: 0 0 8px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-info .rating {
+            display: flex;
+            align-items: center;
+            color: #FFC300;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .card-info .rating i {
+            margin-right: 3px;
+        }
+
+        .card-info .rating i.fa-paw-half-alt {
+            position: relative;
+            width: 0.5em;
+            overflow: hidden;
+            color: #FFC300;
+        }
+
+        .card-prime-badge {
+            background-color: #FFC300;
+            color: #000000;
+            padding: 2px 7px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .footer {
+            background-color: #0d1217;
+            padding: 30px 40px;
+            text-align: center;
+            font-size: 14px;
+            color: #888888;
+            margin-top: 60px;
+        }
+
+        .footer-links a {
+            color: #888888;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+
+        .footer p {
+            margin-top: 20px;
+            margin-bottom: 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #1a242f;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 900px;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 32px;
+            color: #FFC300;
+        }
+
+        .close {
+            color: #aaaaaa;
+            font-size: 36px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #ffffff;
+        }
+
+        .modal-body img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            background-color: #2b3a4a;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .modal-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-left">
+            <div class="logo">
+                <span class="prime-logo-text">Prime <span>Video</span></span>
+            </div>
+            <nav class="main-nav">
+                <a href="#" class="nav-link active">Home</a>
+                <a href="#" class="nav-link">Catnip Store</a>
+                <a href="#" class="nav-link">Live Cat Cams</a>
+                <a href="#" class="nav-link">Categories</a>
+            </nav>
+        </div>
+        <div class="navbar-right">
+            <div class="search-box">
+                <input type="text" placeholder="Search for the purr-fect video...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="profile-menu">
+                <div class="profile-avatar" id="profile-btn">C</div> 
+                <span class="profile-text">My Paw Account</span>
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section" id="hero-banner"> 
+            <div class="hero-content">
+                <p class="prime-badge">INCLUDED WITH AMEOWZON PURR-IME</p>
+                <h1>The Secret Life of Paws</h1>
+                <p class="hero-description">Winner of this year's Golden Fur Award. Uncover the hidden truths behind the mysterious laser pointer. An epic saga of fluff and intrigue.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-watch-now"><i class="fas fa-play"></i> Watch Now</button>
+                    <button class="btn btn-trailer"><i class="fas fa-info-circle"></i> Trailer</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-row-wrapper">
+            <h2>Continue Watching</h2>
+            <div class="content-row">
+                <div class="content-card" data-title="Basket Ballers" data-desc="The ultimate game of skill and basket-stealing. Watch these furry athletes dominate the living room." data-img="https://pbs.twimg.com/media/G6aUVywbEAAYSxh?format=jpg&name=small">
+                    <img src="https://pbs.twimg.com/media/G6aUVywbEAAYSxh?format=jpg&name=small" alt="Video Thumbnail 1">
+                    <div class="card-info">
+                        <h3>Basket Ballers</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw-half-alt"></i> 4.5
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                <div class="content-card" data-title="Cardboard Box Diaries" data-desc="A philosophical journey into the life inside the perfect Amazon box. Is this home, or just a temporary hideout?" data-img="https://pbs.twimg.com/media/G6aIcECbIAE2BS_?format=jpg&name=small">
+                    <img src="https://pbs.twimg.com/media/G6aIcECbIAE2BS_?format=jpg&name=small" alt="Video Thumbnail 2">
+                    <div class="card-info">
+                        <h3>Cardboard Box Diaries</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i> 4.0
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                <div class="content-card" data-title="The Mystery of the Red Dot" data-desc="A tense, Hitchcockian thriller. The red dot haunts them. They must catch it. But at what cost?" data-img="https://pbs.twimg.com/media/G6aGm5Pa8AAJLz9?format=jpg&name=small">
+                    <img src="https://pbs.twimg.com/media/G6aGm5Pa8AAJLz9?format=jpg&name=small" alt="Video Thumbnail 3">
+                    <div class="card-info">
+                        <h3>The Mystery of the Red Dot</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i> 5.0
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                 <div class="content-card" data-title="Window Staring Contest" data-desc="The annual passive-aggressive neighborhood event. Who can stare at the world outside the longest without blinking?" data-img="https://pbs.twimg.com/media/G6aCB6raQAAMXWB?format=jpg&name=small">
+                    <img src="https://pbs.twimg.com/media/G6aCB6raQAAMXWB?format=jpg&name=small" alt="Video Thumbnail 4">
+                    <div class="card-info">
+                        <h3>Window Staring Contest</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i> 3.5
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                <div class="content-card" data-title="The Catnip Chronicles" data-desc="A documentary exploring the culture and effects of the mysterious green herb. Warning: may cause zoomies." data-img="https://pbs.twimg.com/media/G6Z0TADaUAAnS4v?format=jpg&name=small">
+                    <img src="https://pbs.twimg.com/media/G6Z0TADaUAAnS4v?format=jpg&name=small" alt="Video Thumbnail 5">
+                    <div class="card-info">
+                        <h3>The Catnip Chronicles</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i> 4.0
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                <div class="content-card" data-title="Purr-anormal Activity" data-desc="When objects start flying off shelves and doors slam shut, you know the poltergeist is a disgruntled cat." data-img="https://pbs.twimg.com/media/G6Zs-QBb0AAQvnX?format=jpg&name=small">
+                    <img src="https://pbs.twimg.com/media/G6Zs-QBb0AAQvnX?format=jpg&name=small" alt="Video Thumbnail 6">
+                    <div class="card-info">
+                        <h3>Purr-anormal Activity</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i> 4.5
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-row-wrapper">
+            <h2>This Week's Top Purr-formances</h2>
+            <div class="content-row">
+                 <div class="content-card" data-title="Toilet Paper Attack" data-desc="A thrilling action movie where one cat single-handedly defeats a 12-roll pack of quilted softness." data-img="https://pbs.twimg.com/media/G6Zku6vbYAAwzn5?format=jpg&name=small">
+                    <img src="https://pbs.twimg.com/media/G6Zku6vbYAAwzn5?format=jpg&name=small" alt="Video Thumbnail 7">
+                    <div class="card-info">
+                        <h3>Toilet Paper Attack</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i> 5.0
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                <div class="content-card" data-title="Laser Pointer Dance-Off" data-desc="The annual underground competition where speed, agility, and sheer delusion are key to victory." data-img="https://pbs.twimg.com/media/G6ZhEhnasAAK7LI?format=jpg&name=small">
+                    <img src="https://pbs.twimg.com/media/G6ZhEhnasAAK7LI?format=jpg&name=small" alt="Video Thumbnail 8">
+                    <div class="card-info">
+                        <h3>Laser Pointer Dance-Off</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw-half-alt"></i> 4.5
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                <div class="content-card" data-title="Invisible Wall Challenge" data-desc="A hilarious clip show of cats bumping into clear glass doors and imaginary barriers." data-img="https://pbs.twimg.com/media/G6ZLGSZaEAADFPO?format=jpg&name=small">
+                    <img src="https://pbs.twimg.com/media/G6ZLGSZaEAADFPO?format=jpg&name=small" alt="Video Thumbnail 9">
+                    <div class="card-info">
+                        <h3>Invisible Wall Challenge</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i> 4.0
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                 <div class="content-card" data-title="Food Bowl Empty Again?!" data-desc="A heartbreaking drama about the continuous suffering caused by the bottom of the food bowl." data-img="https://media.tenor.com/1Hq1EY8_MXAAAAAM/m%C3%A8o-troll.gif">
+                    <img src="https://media.tenor.com/1Hq1EY8_MXAAAAAM/m%C3%A8o-troll.gif" alt="Video Thumbnail 10">
+                    <div class="card-info">
+                        <h3>Food Bowl Empty Again?!</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw-half-alt"></i> 4.5
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                <div class="content-card" data-title="Bird-Watching: The Thrill of the Hunt" data-desc="A 4-hour non-stop feed of chirping birds guaranteed to captivate your feline friend." data-img="https://media.tenor.com/JCdmUCqHJo8AAAAM/cat.gif">
+                    <img src="https://media.tenor.com/JCdmUCqHJo8AAAAM/cat.gif" alt="Video Thumbnail 11">
+                    <div class="card-info">
+                        <h3>Bird-Watching: The Thrill of the Hunt</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i> 4.0
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                <div class="content-card" data-title="The Cat Tree Climber" data-desc="An adventurous climb to the highest, most unstable point of the house. The view is purr-fect." data-img="https://media.tenor.com/KCM_Q46R7b0AAAAM/cat-kitten.gif">
+                    <img src="https://media.tenor.com/KCM_Q46R7b0AAAAM/cat-kitten.gif" alt="Video Thumbnail 12">
+                    <div class="card-info">
+                        <h3>The Cat Tree Climber</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw-half-alt"></i> 4.5
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-row-wrapper">
+            <h2>Kitten Korner</h2>
+            <div class="content-row">
+                 <div class="content-card" data-title="First Steps: A Wobbly Journey" data-desc="Adorable and clumsy footage of kittens discovering their feet, and often, gravity." data-img="https://media.tenor.com/pdX9YTI4_eoAAAA1/cat-cat-with-tongue.webp">
+                    <img src="https://media.tenor.com/pdX9YTI4_eoAAAA1/cat-cat-with-tongue.webp" alt="Video Thumbnail 13">
+                    <div class="card-info">
+                        <h3>First Steps: A Wobbly Journey</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i> 5.0
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                <div class="content-card" data-title="Playtime with Yarn Balls" data-desc="A classic. Hours of entanglement and pure, chaotic joy." data-img="https://media.tenor.com/V3d36Q2dI_MAAAAM/cats-catz.gif">
+                    <img src="https://media.tenor.com/V3d36Q2dI_MAAAAM/cats-catz.gif" alt="Video Thumbnail 14">
+                    <div class="card-info">
+                        <h3>Playtime with Yarn Balls</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw-half-alt"></i> 4.5
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                <div class="content-card" data-title="Nap Time Cuddles" data-desc="The most heartwarming, sleep-inducing video content available. Best viewed with a warm blanket." data-img="https://media.tenor.com/0Q5IZ6e9pC8AAAAM/cat-cute-cat.gif">
+                    <img src="https://media.tenor.com/0Q5IZ6e9pC8AAAAM/cat-cute-cat.gif" alt="Video Thumbnail 15">
+                    <div class="card-info">
+                        <h3>Nap Time Cuddles</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i> 4.0
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                 <div class="content-card" data-title="Learning to Purr" data-desc="A tutorial series for baby cats on how to properly activate the internal vibrating motor." data-img="https://media.tenor.com/GJUz8DogSTUAAAAm/cute-cat-cutie.webp">
+                    <img src="https://media.tenor.com/GJUz8DogSTUAAAAm/cute-cat-cutie.webp" alt="Video Thumbnail 16">
+                    <div class="card-info">
+                        <h3>Learning to Purr</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw-half-alt"></i> 4.5
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+                <div class="content-card" data-title="Dancing Felines" data-desc="Get ready to groove with the coolest cats around as they show off their purr-fect moves!" data-img="https://media.tenor.com/4HJ2V6mgJVQAAAAM/cute-cats-dancing.gif">
+                    <img src="https://media.tenor.com/4HJ2V6mgJVQAAAAM/cute-cats-dancing.gif" alt="Video Thumbnail 17">
+                    <div class="card-info">
+                        <h3>Dancing Felines</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i> 5.0
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>               
+                <div class="content-card" data-title="Hehehe Cat Meme" data-desc="A compilation of the most mischievous and hilarious cat memes that will make you chuckle." data-img="https://media.tenor.com/_sTH2Ou_9iIAAAA1/cat-meme-hehehe.webp">
+                    <img src="https://media.tenor.com/_sTH2Ou_9iIAAAA1/cat-meme-hehehe.webp" alt="Video Thumbnail 18">
+                    <div class="card-info">
+                        <h3>Hehehe Cat Meme</h3>
+                        <div class="rating">
+                            <i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i><i class="fas fa-paw"></i> 4.0
+                        </div>
+                        <span class="card-prime-badge">Purr-ime</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">Conditions of Use</a>
+            <a href="#">Privacy Notice</a>
+            <a href="#">Help</a>
+            <a href="#">Cookies & Internet Advertising</a>
+        </div>
+        <p>&copy; 1996-2023, Prime Video, Inc. or its affiliates</p>
+    </footer>
+
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Video Details">
+                <p id="modalDescription" class="modal-description"></p>
+                <button class="btn btn-watch-now" style="margin-top: 20px;"><i class="fas fa-play"></i> Watch Full Video</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById("videoModal");
+            const closeBtn = document.getElementsByClassName("close")[0];
+            const contentCards = document.querySelectorAll('.content-card');
+            const profileBtn = document.getElementById("profile-btn");
+            const heroBanner = document.getElementById('hero-banner');
+
+            const heroImages = [
+                'https://media.tenor.com/39c7_ZNzC4MAAAAm/silly-cat-silly.webp',
+                'https://media.tenor.com/1Hq1EY8_MXAAAAAM/m%C3%A8o-troll.gif',
+                'https://media.tenor.com/V3d36Q2dI_MAAAAM/cats-catz.gif',
+                'https://media.tenor.com/4HJ2V6mgJVQAAAAM/cute-cats-dancing.gif',
+                'https://pbs.twimg.com/media/G6aUVywbEAAYSxh?format=jpg&name=small',
+                'https://pbs.twimg.com/media/G6Zku6vbYAAwzn5?format=jpg&name=small'
+            ];
+            let currentImageIndex = 0;
+
+            function updateHeroBanner() {
+                const nextImageUrl = heroImages[currentImageIndex];
+                
+                heroBanner.style.backgroundImage = `url('${nextImageUrl}')`;
+                heroBanner.style.backgroundSize = 'contain';
+                heroBanner.style.backgroundRepeat = 'no-repeat';
+                heroBanner.style.backgroundColor = '#1a242f';
+                
+                currentImageIndex = (currentImageIndex + 1) % heroImages.length;
+            }
+
+            updateHeroBanner();
+
+            setInterval(updateHeroBanner, 5000); 
+
+            contentCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const imgSrc = card.dataset.img;
+                    if (imgSrc) {
+                        document.getElementById('modalTitle').textContent = card.dataset.title;
+                        document.getElementById('modalDescription').textContent = card.dataset.desc;
+                        document.getElementById('modalImage').src = imgSrc;
+                        modal.style.display = "block";
+                    } else {
+                        alert("The video for this card is currently unavailable.");
+                    }
+                });
+            });
+
+            closeBtn.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+
+            profileBtn.addEventListener('click', () => {
+                alert("Profile menu activated! (Imagine a dropdown here)");
+            });
+        });
+    </script>
+</body>
+</html>
